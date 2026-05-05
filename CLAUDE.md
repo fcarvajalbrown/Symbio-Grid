@@ -22,6 +22,9 @@
 - **Python:** always create and activate a venv before installing any dependencies.
 - Multiple conflicting Python installs on this machine — never skip the venv step.
 
+## Science Publishing — Zenodo Review Protocol
+Before publishing any batch results to Zenodo, run 3 independent Claude-based reviewer agents via the API. Each agent receives the simulation results, methodology, and emergent rule-table data and reviews independently. All 3 must approve before submission. Reviewers check: statistical validity, emergent behavior coherence, rule-table interpretability, and FAIR data compliance.
+
 ## Project Architecture
 - Two separate programs in one repo: `symbiogrid.game` (Pygame) and `symbiogrid.science` (Mesa headless).
 - Shared simulation core in `symbiogrid/model/` — Mesa Model + BDI agents + evolving rule-tables.
