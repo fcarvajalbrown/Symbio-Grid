@@ -5,10 +5,8 @@
 ![Pygame](https://img.shields.io/badge/pygame-2.x-E87D0D?logo=python&logoColor=white)
 ![Phase](https://img.shields.io/badge/phase-1%20game-blueviolet)
 ![Status](https://img.shields.io/badge/status-in%20development-yellow)
-![License](https://img.shields.io/badge/license-MIT-green)
-![Platform](https://img.shields.io/badge/platform-windows%20%7C%20linux%20%7C%20mac-lightgrey)
+![License](https://img.shields.io/badge/license-GNU%20GPL%20v3-blue)
 ![itch.io](https://img.shields.io/badge/itch.io-game-FA5C5C?logo=itch.io&logoColor=white)
-![Zenodo](https://img.shields.io/badge/zenodo-phase%202-024DA1?logo=zenodo&logoColor=white)
 ![ORCID](https://img.shields.io/badge/ORCID-0000--0002--8300--7587-A6CE39?logo=orcid&logoColor=white)
 
 An evolutionary mycelial automaton. Plant and fungi agents trade resources and mutate their rule-tables across generations until a stable bio-economy emerges — or collapses.
