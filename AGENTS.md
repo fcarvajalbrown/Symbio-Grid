@@ -61,6 +61,12 @@
 
 ---
 
+## Science Publishing — Zenodo Review Protocol
+
+Before publishing any batch results to Zenodo, run 3 independent Claude-based reviewer agents via the API. Each agent receives the simulation results, methodology, and emergent rule-table data and reviews independently. All 3 must approve before submission. Reviewers check: statistical validity, emergent behavior coherence, rule-table interpretability, and FAIR data compliance.
+
+---
+
 ## Agent Interaction Rules
 
 - "Add to AGENTS.md" means write to the file locally and STOP. Do NOT commit or push unless explicitly asked.
@@ -79,9 +85,16 @@
 
 ## Project TODOs
 
-- [ ] Scaffold file structure and stub all modules.
-- [ ] Implement Mesa model core (PlantAgent, FungiAgent, RuleTable, GeneticEngine).
-- [ ] Implement Pygame game loop and renderer.
-- [ ] Implement start screen with presets + seed + sliders.
-- [ ] Implement scrollable viewport with mouse/keyboard pan.
+- [x] Scaffold file structure and stub all modules.
+- [x] Implement Mesa model core (PlantAgent, FungiAgent, RuleTable, GeneticEngine).
+- [x] Implement Pygame game loop and renderer.
+- [x] Implement start screen with presets + seed + sliders.
+- [x] Implement scrollable viewport with mouse/keyboard pan.
+- [ ] **Next session — Phase 1 review:**
+  - Set up venv and install requirements.txt
+  - Run `python -m symbiogrid.game` and verify it launches
+  - Walk through each file: model → agents → rules → renderer → HUD → screens
+  - Fix any Mesa 2.x API issues found at runtime
+  - Tune agent BDI parameters (trade amounts, resource decay, spawn thresholds)
 - [ ] Phase 2: Mesa headless batch runner + DataCollector + export (CSV/Parquet).
+- [ ] Phase 2: 3-agent Claude review pipeline before Zenodo submission.
