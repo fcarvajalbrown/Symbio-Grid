@@ -15,12 +15,6 @@ system while releasing the model and all experiments as open, reproducible softw
 model is described following the ODD protocol, and every reported result is reproducible
 from a fixed random seed via the accompanying script.
 
-I would be grateful for your guidance on two points. First, please confirm that an
-agent-based-modelling study of this kind fits the journal's scope. Second, the manuscript is
-a focused, exploratory study and is shorter than a typical full-length article; I would
-welcome your advice on whether it is best handled as a regular paper or, if the journal
-offers one, a shorter format.
-
 This manuscript is original, has not been published previously, and is not under
 consideration elsewhere. The work received no external funding, and I declare no competing
 interests. All software and data are openly available.

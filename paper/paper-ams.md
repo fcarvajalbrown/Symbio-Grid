@@ -24,6 +24,9 @@ survivors. Finally, this selection signal is visible only when trading is measur
 states agents actually visit, not by averaging over the whole rule-table, a caution for
 evolvable-strategy models. The model and all experiments are open source and reproducible.
 
+**Keywords:** agent-based modeling; evolution of cooperation; resource-trading mutualism;
+plant–fungi symbiosis; resilience threshold; reproducible simulation.
+
 ## 1. Introduction
 
 Mutualism, cooperation between species that exchange resources, is widespread in nature, yet
