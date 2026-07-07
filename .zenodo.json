@@ -1,0 +1,22 @@
+{
+  "title": "Symbio-Grid: an evolutionary agent-based model of plant–fungi resource symbiosis",
+  "description": "An open-source agent-based model of an evolving resource economy between plants and fungi, built on Mesa. Ships as a real-time Pygame visualization and a headless, reproducible science batch runner that exports per-tick metrics, evolved rule-table 'DNA', and a reproducibility manifest.",
+  "upload_type": "software",
+  "license": "GPL-3.0-only",
+  "access_right": "open",
+  "creators": [
+    {
+      "name": "Carvajal Brown, Felipe",
+      "orcid": "0000-0002-8300-7587",
+      "affiliation": "Universidad Politécnica de Madrid"
+    }
+  ],
+  "keywords": [
+    "agent-based model",
+    "mesa",
+    "artificial life",
+    "evolutionary simulation",
+    "mycorrhizal symbiosis",
+    "complex adaptive systems"
+  ]
+}

@@ -8,3 +8,4 @@ build/
 *.parquet
 *.csv
 data/
+science_output/
