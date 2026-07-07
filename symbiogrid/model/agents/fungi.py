@@ -13,13 +13,14 @@ class FungiAgent(BDIAgent):
         from symbiogrid.model.agents.plant import PlantAgent
         neighbors = self.model.grid.get_neighbors(self.pos, moore=True, include_center=False)
         plants = [a for a in neighbors if isinstance(a, PlantAgent) and a.alive]
-        soil_p = self.model.phosphorus_map[self.pos[0], self.pos[1]]
-        neighborhood = self.model.grid.get_neighborhood(self.pos, moore=True, include_center=False)
-        empty = [pos for pos in neighborhood if self.model.grid.is_cell_empty(pos)]
+        reach = self.model.grid.get_neighborhood(self.pos, moore=True, include_center=True)
+        empty = [pos for pos in reach if pos != self.pos and self.model.grid.is_cell_empty(pos)]
+        soil_p = sum(self.model.phosphorus_map[x, y] for x, y in reach)
         self.beliefs = {
             "phosphorus": self.phosphorus,
             "carbon": self.carbon,
             "plant_neighbors": plants,
+            "reach": reach,
             "soil_phosphorus": soil_p,
             "empty_neighbors": empty,
             "stressed": self.carbon < 2.0,
@@ -33,12 +34,10 @@ class FungiAgent(BDIAgent):
         self.intention = self.rule_table.query(state)
 
     def act(self):
-        # absorb soil phosphorus
-        absorbed = min(self.beliefs["soil_phosphorus"], 1.0)
-        self.phosphorus = min(self.phosphorus + absorbed, 20.0)
-        self.model.phosphorus_map[self.pos[0], self.pos[1]] -= absorbed
+        absorbed = self._draw_phosphorus(min(self.config.fungi_uptake, 20.0 - self.phosphorus))
+        self.phosphorus += absorbed
 
-        self.carbon = max(self.carbon - 0.2, 0.0)
+        self.carbon = max(self.carbon - self.config.fungi_c_decay, 0.0)
 
         if self.intention == "TRADE" and self.beliefs["plant_neighbors"]:
             target = self.random.choice(self.beliefs["plant_neighbors"])
@@ -56,6 +55,20 @@ class FungiAgent(BDIAgent):
 
         if self.carbon <= 0:
             self.die()
+
+    def _draw_phosphorus(self, budget):
+        if budget <= 0:
+            return 0.0
+        pmap = self.model.phosphorus_map
+        cells = sorted(self.beliefs["reach"], key=lambda c: pmap[c[0], c[1]], reverse=True)
+        drawn = 0.0
+        for x, y in cells:
+            if drawn >= budget:
+                break
+            take = min(pmap[x, y], budget - drawn)
+            pmap[x, y] -= take
+            drawn += take
+        return drawn
 
     def _spawn(self, pos):
         child = FungiAgent(self.model, self.rule_table.mutate(), self.config)

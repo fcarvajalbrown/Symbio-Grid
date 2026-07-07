@@ -66,6 +66,8 @@ class StartScreen:
         self._launch_rect = pygame.Rect(0, 0, 0, 0)
         self._preset_rects: list[pygame.Rect] = []
         self._grid_rects: list[pygame.Rect] = []
+        self._seed_box_x = 0
+        self._seed_box_y = 0
 
     def handle_events(self, events: list) -> SimulationConfig | None:
         for event in events:

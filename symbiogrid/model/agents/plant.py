@@ -13,10 +13,13 @@ class PlantAgent(BDIAgent):
         from symbiogrid.model.agents.fungi import FungiAgent
         neighbors = self.model.grid.get_neighbors(self.pos, moore=True, include_center=False)
         fungi = [a for a in neighbors if isinstance(a, FungiAgent) and a.alive]
+        neighborhood = self.model.grid.get_neighborhood(self.pos, moore=True, include_center=False)
+        empty = [pos for pos in neighborhood if self.model.grid.is_cell_empty(pos)]
         self.beliefs = {
             "carbon": self.carbon,
             "phosphorus": self.phosphorus,
             "fungi_neighbors": fungi,
+            "empty_neighbors": empty,
             "stressed": self.phosphorus < 2.0,
         }
 
@@ -29,7 +32,7 @@ class PlantAgent(BDIAgent):
 
     def act(self):
         self.carbon = min(self.carbon + 1.0, 20.0)
-        self.phosphorus = max(self.phosphorus - 0.3, 0.0)
+        self.phosphorus = max(self.phosphorus - self.config.plant_p_decay, 0.0)
 
         if self.intention == "TRADE" and self.beliefs["fungi_neighbors"]:
             target = self.random.choice(self.beliefs["fungi_neighbors"])
@@ -40,5 +43,18 @@ class PlantAgent(BDIAgent):
                 self.phosphorus += amount
                 target.phosphorus -= amount
 
+        elif self.intention == "SPROUT" and self.beliefs["empty_neighbors"]:
+            if self.carbon > 12.0 and self.phosphorus > 6.0:
+                pos = self.random.choice(self.beliefs["empty_neighbors"])
+                self._spawn(pos)
+
         if self.phosphorus <= 0:
             self.die()
+
+    def _spawn(self, pos):
+        child = PlantAgent(self.model, self.rule_table.mutate(), self.config)
+        child.carbon = self.carbon * 0.4
+        child.phosphorus = self.phosphorus * 0.4
+        self.carbon *= 0.6
+        self.phosphorus *= 0.6
+        self.model.grid.place_agent(child, pos)

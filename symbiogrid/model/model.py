@@ -8,30 +8,40 @@ from symbiogrid.model.rules.rule_table import RuleTable, PLANT_ACTIONS, FUNGI_AC
 
 class SymbioModel(mesa.Model):
     def __init__(self, config: SimulationConfig):
-        super().__init__(seed=config.seed)
+        super().__init__(rng=config.seed)
         self.config = config
         self.generation = 0
         self.grid = mesa.space.MultiGrid(config.width, config.height, torus=True)
 
-        rng = np.random.default_rng(config.seed)
-        self.phosphorus_map = rng.uniform(0, 10, (config.width, config.height)) * config.phosphorus_density
+        self.phosphorus_map = self.rng.uniform(0, 10, (config.width, config.height)) * config.phosphorus_density
         self.carbon_map = np.zeros((config.width, config.height))
 
-        self._place_agents(rng)
+        self._place_agents()
 
-    def _place_agents(self, rng: np.random.Generator):
+    def _place_agents(self):
         all_positions = [(x, y) for x in range(self.config.width) for y in range(self.config.height)]
-        indices = rng.permutation(len(all_positions))
+        indices = self.rng.permutation(len(all_positions))
+        plant_positions = [all_positions[indices[i]] for i in range(self.config.n_plants)]
+        occupied = set(plant_positions)
 
-        for i in range(self.config.n_plants):
-            rt = RuleTable(PLANT_ACTIONS, mutation_rate=self.config.mutation_rate)
-            agent = PlantAgent(self, rt, self.config)
-            self.grid.place_agent(agent, all_positions[indices[i]])
+        for pos in plant_positions:
+            rt = RuleTable(PLANT_ACTIONS, mutation_rate=self.config.mutation_rate, rng=self.random)
+            self.grid.place_agent(PlantAgent(self, rt, self.config), pos)
 
         for i in range(self.config.n_fungi):
-            rt = RuleTable(FUNGI_ACTIONS, mutation_rate=self.config.mutation_rate)
-            agent = FungiAgent(self, rt, self.config)
-            self.grid.place_agent(agent, all_positions[indices[self.config.n_plants + i]])
+            pos = self._fungi_seat(plant_positions, occupied, i)
+            occupied.add(pos)
+            rt = RuleTable(FUNGI_ACTIONS, mutation_rate=self.config.mutation_rate, rng=self.random)
+            self.grid.place_agent(FungiAgent(self, rt, self.config), pos)
+
+    def _fungi_seat(self, plant_positions, occupied, i):
+        if plant_positions:
+            anchor = plant_positions[i % len(plant_positions)]
+            free = [p for p in self.grid.get_neighborhood(anchor, moore=True, include_center=False) if p not in occupied]
+            if free:
+                return free[self.random.randrange(len(free))]
+        free = [p for p in ((x, y) for x in range(self.config.width) for y in range(self.config.height)) if p not in occupied]
+        return free[self.random.randrange(len(free))]
 
     def step(self):
         self.agents.shuffle_do("step")
@@ -47,7 +57,7 @@ class SymbioModel(mesa.Model):
             a.remove()
 
     def _replenish_phosphorus(self):
-        self.phosphorus_map = np.clip(self.phosphorus_map + 0.02, 0, 10)
+        self.phosphorus_map = np.clip(self.phosphorus_map + self.config.phosphorus_regen, 0, 10)
 
     def get_state(self) -> dict:
         plants = [a for a in self.agents if isinstance(a, PlantAgent)]
