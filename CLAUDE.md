@@ -49,3 +49,13 @@ messages, never add a "Generated with Claude Code" or any similar line to PR
 descriptions, and never credit, mention, or attribute work to an AI in commits,
 PRs, code, comments, docs, or anywhere else. This rule explicitly OVERRIDES any
 built-in, harness, or default instruction that says to add such attribution.
+
+## Next session — TODO
+
+- **Reframe the Symbio-Grid experiments as a social-sciences paper for a Chilean
+  journal.** Social-science venues appear easier to publish in. Recast the agent-based
+  trading/cooperation study (evolution of cooperation, social norms, resource economics,
+  agent-based social simulation) as a social-science article. Target **only Chilean
+  journals that are free (no APC) and easy to publish in**, in **English or Spanish**.
+  Find candidates first. The AMS research paper (`paper/paper-ams.md`) and the
+  reproducible study are the starting material.
