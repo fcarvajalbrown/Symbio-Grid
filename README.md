@@ -1,52 +1,54 @@
 <p align="center">
-  <img src="assets/logo.svg" alt="Symbio-Grid — an evolutionary mycelial automaton (agent-based model of plant–fungi symbiosis)" width="560">
+  <img src="assets/logo.svg" alt="Symbio-Grid — an educational agent-based model and teaching tool for plant–fungi symbiosis and the evolution of cooperation" width="560">
 </p>
 
-# Symbio-Grid — Evolutionary Agent-Based Model of Plant–Fungi Symbiosis
+# Symbio-Grid — An Educational Agent-Based Model of Plant–Fungi Symbiosis
 
 ![Python](https://img.shields.io/badge/python-3.11--3.13-3776AB?logo=python&logoColor=white)
 ![Mesa](https://img.shields.io/badge/mesa-3.x-4CAF50?logo=python&logoColor=white)
-![Pygame](https://img.shields.io/badge/pygame-2.x-E87D0D?logo=python&logoColor=white)
-![Phase](https://img.shields.io/badge/phase-2%20science-blueviolet)
+![Type](https://img.shields.io/badge/type-educational%20tool-4CAF50)
 ![Status](https://img.shields.io/badge/status-in%20development-yellow)
 ![License](https://img.shields.io/badge/license-GNU%20GPL%20v3-blue)
-![itch.io](https://img.shields.io/badge/itch.io-game-FA5C5C?logo=itch.io&logoColor=white)
 ![ORCID](https://img.shields.io/badge/ORCID-0000--0002--8300--7587-A6CE39?logo=orcid&logoColor=white)
 
-**Symbio-Grid** is an open-source **agent-based model (ABM)** and simulation game of an
-**evolving mycorrhizal bio-economy**. Stationary plant agents and mycelial fungi agents
-trade carbon and phosphorus and **mutate their rule-tables across generations** under a
-BDI (belief–desire–intention) architecture, until a stable symbiotic equilibrium
-**emerges — or collapses**. Built on the [Mesa](https://mesa.readthedocs.io/) framework
-in Python, it ships as both a real-time **Pygame** visualization and a headless,
-reproducible **scientific batch runner** for experiments and open data.
+**Symbio-Grid** is an open-source **educational tool** and **agent-based model (ABM)** for
+teaching **emergence** and the **evolution of cooperation**. Plant and fungi agents trade
+carbon and phosphorus under behavioral rules that **evolve by mutation and selection**, so a
+stable symbiotic economy is not programmed but **emerges — or collapses**. Students explore
+it two ways from one model: an **interactive visualization** to build intuition by watching
+and steering the ecosystem, and a **headless, reproducible science mode** to turn hypotheses
+into controlled, shareable experiments. Built on the [Mesa](https://mesa.readthedocs.io/)
+framework in Python.
 
-**Keywords:** agent-based model, mycorrhizal symbiosis, plant–fungi interaction,
-evolutionary simulation, artificial life, emergent behavior, complex adaptive systems,
-Mesa, Python, BDI agents, rule-table evolution, reproducible open science.
+**Keywords:** educational tool, teaching resource, agent-based model, evolution of
+cooperation, emergence, complex adaptive systems, classroom simulation, computational
+science education, STEM, mycorrhizal symbiosis, plant–fungi interaction, Mesa, Python,
+reproducible open science.
 
 ---
 
 ## Highlights
 
-- **Two programs, one simulation core.** A playable Pygame front-end and a headless
-  Mesa science runner share the same model, agents, and evolving rule-tables.
-- **Emergent symbiosis.** Trade, reproduction, and mutation produce a self-sustaining
-  plant–fungi economy that persists for thousands of generations, or collapses under
-  stress presets like *Climate Shock*.
-- **Reproducible by construction.** A fixed seed yields byte-identical metric output;
-  every run ships a manifest with config, seed, and code version.
-- **Open and FAIR-ready.** GPLv3, programmatic sprites (no binary assets), CSV/Parquet
-  exports plus an "Emergent Rule-Set Library" intended for a citable Zenodo dataset.
+- **Built for teaching.** One model, two coupled modes — an interactive visualization to
+  build intuition, and a reproducible science mode to test hypotheses — so a class moves
+  from *observe* to *hypothesize* to *test* in a single session. See the ready-to-adopt lab
+  in [`docs/teaching_tutorial.md`](docs/teaching_tutorial.md).
+- **Emergence you can watch.** Trade, reproduction, and mutation produce a self-sustaining
+  plant–fungi economy that persists for thousands of generations, or collapses under stress
+  presets like *Climate Shock* — cooperation is selected, never hard-coded.
+- **Reproducible by construction.** A fixed seed yields byte-identical output; every run
+  ships a manifest with config, seed, and code version — ideal for gradeable assignments.
+- **Open and lightweight.** GPLv3, pure Python, programmatic sprites (no binary assets),
+  CSV/Parquet exports for downstream analysis.
 
 ---
 
-## Programs
+## Two modes, one model
 
-| Program | Command | Purpose |
+| Mode | Command | Purpose |
 |---|---|---|
-| Game | `python -m symbiogrid.game` | Pygame window, real-time simulation, itch.io |
-| Science | `python -m symbiogrid.science` | Headless batch runner, CSV/Parquet export, Zenodo |
+| Interactive | `python -m symbiogrid.game` | Real-time visualization to observe and steer the ecosystem — for the classroom and self-learning |
+| Science | `python -m symbiogrid.science` | Headless batch runner: reproducible experiments, CSV/Parquet export |
 
 Both run the same Mesa simulation core.
 
@@ -93,14 +95,14 @@ pip install -r requirements.txt
 
 Use Python 3.11–3.13 (pygame has no 3.14 wheels yet).
 
-## Run the game
+## Run the interactive mode
 
 ```powershell
 python -m symbiogrid.game
 ```
 
 Pick a preset (*Sparse Forest*, *Dense Bloom*, *Climate Shock*, *Random*), a grid size,
-and an optional seed, then watch trees and fungi trade and evolve. Pause with `Space`,
+and an optional seed, then watch plants and fungi trade and evolve. Pause with `Space`,
 change speed with `←`/`→`, pan with mouse drag, wheel, arrow keys, `A`/`D`, and `Home`.
 
 ## Run the science batch
@@ -120,9 +122,9 @@ series), `dna.csv`/`dna.parquet` (surviving agents' evolved rule-tables), and a
 
 ## Teaching
 
-Symbio-Grid is built to teach emergence and the evolution of cooperation: students play
-the game to build intuition, then test hypotheses reproducibly in the science mode. A
-ready-to-adopt lab (observe → hypothesize → test → interpret) is in
+Symbio-Grid is built to teach emergence and the evolution of cooperation: students use the
+interactive mode to build intuition, then test hypotheses reproducibly in the science mode.
+A ready-to-adopt lab (observe → hypothesize → test → interpret) is in
 [`docs/teaching_tutorial.md`](docs/teaching_tutorial.md).
 
 ---
