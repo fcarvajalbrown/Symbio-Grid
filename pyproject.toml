@@ -1,0 +1,44 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "symbiogrid"
+version = "0.1.0"
+description = "An evolutionary agent-based model of plant–fungi resource symbiosis, with a Pygame game and a headless science runner."
+readme = "README.md"
+requires-python = ">=3.11,<3.14"
+license = "GPL-3.0-only"
+authors = [{ name = "Felipe Carvajal Brown", email = "fcarvajalbrown@gmail.com" }]
+keywords = ["agent-based model", "mesa", "artificial life", "evolutionary simulation", "mycorrhizal symbiosis", "complex adaptive systems"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Science/Research",
+  "Topic :: Scientific/Engineering :: Artificial Life",
+  "Programming Language :: Python :: 3",
+]
+dependencies = [
+  "mesa>=3.0,<4",
+  "pygame>=2.6",
+  "numpy>=1.26",
+  "pandas>=2.0",
+  "pyarrow>=15.0",
+  "networkx>=3.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+
+[project.scripts]
+symbiogrid-game = "symbiogrid.game.app:run"
+symbiogrid-science = "symbiogrid.science.__main__:main"
+
+[project.urls]
+Homepage = "https://github.com/fcarvajalbrown/Symbio-Grid"
+Repository = "https://github.com/fcarvajalbrown/Symbio-Grid"
+
+[tool.setuptools.packages.find]
+include = ["symbiogrid*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
