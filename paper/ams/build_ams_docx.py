@@ -1,9 +1,11 @@
 """Build paper-ams.docx from paper-ams.md in AMS style (numbered [n] citations, all-author references)."""
+import os
 import re
 from pathlib import Path
 import pypandoc
 
 HERE = Path(__file__).resolve().parent
+RESOURCE_PATH = os.pathsep.join([str(HERE), str(HERE.parent)])
 
 # AMS reference style: initials + surname, all authors, full journal, volume, year, pages.
 REFS = {
@@ -40,11 +42,11 @@ def main():
     tmp = HERE / "_ams_build.md"
     tmp.write_text(f"---\n{front}\n---\n\n{body}", encoding="utf-8")
     pypandoc.convert_file(str(tmp), "docx", outputfile=str(HERE / "paper-ams.docx"),
-                          extra_args=["--resource-path", str(HERE)])
+                          extra_args=["--resource-path", RESOURCE_PATH])
     print(f"wrote {HERE / 'paper-ams.docx'}  ({len(order)} references, {len(num)} cited)")
     try:
         pypandoc.convert_file(str(tmp), "pdf", outputfile=str(HERE / "paper-ams.pdf"),
-                              extra_args=["--resource-path", str(HERE), "--pdf-engine=xelatex"])
+                              extra_args=["--resource-path", RESOURCE_PATH, "--pdf-engine=xelatex"])
         print(f"wrote {HERE / 'paper-ams.pdf'}")
     except Exception as e:
         print(f"PDF build skipped ({type(e).__name__}); docx is ready. Detail: {str(e)[:200]}")

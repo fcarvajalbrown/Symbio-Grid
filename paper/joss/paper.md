@@ -16,7 +16,7 @@ affiliations:
   - name: Universidad Politécnica de Madrid, Madrid, Spain
     index: 1
 date: 7 July 2026
-bibliography: paper.bib
+bibliography: ../paper.bib
 ---
 
 # Summary
